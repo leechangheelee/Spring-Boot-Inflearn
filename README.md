@@ -5,3 +5,6 @@
 ## **스프링 부트 시작하기**
   * 스프링 부트 소개
     * https://docs.spring.io/spring-boot/docs/2.0.3.RELEASE/reference/htmlsingle/#getting-started-introducing-spring-boot
+  * 스프링부트 시작하기
+    * Maven 빌드로 시작
+    * 참고) https://docs.spring.io/spring-boot/docs/2.6.2/maven-plugin/reference/htmlsingle/#?
