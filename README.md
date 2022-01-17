@@ -19,3 +19,7 @@
     * 메인 애플리케이션 위치
       * 기본 패키지
       * 참고) https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using.structuring-your-code
+
+## **스프링 부트 원리**
+  * 의존성 관리 이해
+    * 참고) https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-dependency-management
