@@ -23,3 +23,17 @@
 ## **스프링 부트 원리**
   * 의존성 관리 이해
     * 참고) https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-dependency-management
+  * 의존성 관리 응용
+    * 버전 관리 해주는 의존성 추가
+      * spring 에서 관리되는 의존성은 버전명을 명시해주지 않아도 따라옴. (인텔리제이에 아이콘 표시됨)
+    * 버전 관리 안해주는 의존성 추가
+      * 예) https://mvnrepository.com/ 의 modelmapper
+      * 버전명을 명시해 주어야함. 서버에 운영중인 의존성도 버전을 명시해서 맞춰주는게 좋음.
+    * 기존 의존성 버전 변경하기
+      * 프로젝트의 pom.xml 에서 해당 속성 오버라이딩 해주면 됨
+      * 예)
+        ```xml
+        <properties>
+            <spring.version>5.0.6.RELEASE</spring.version>
+        </properties>
+        ```
