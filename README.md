@@ -37,3 +37,20 @@
             <spring.version>5.0.6.RELEASE</spring.version>
         </properties>
         ```
+  * 자동 설정 이해
+    * @EnableAutoConfiguration (@SpringBootApplication 안에 숨어있음)
+    * 빈은 사실 두 단계로 나눠서 읽힘
+      * 1단계: @ComponentScan
+      * 2단계: @EnableAutoConfiguration
+    * @ComponentScan
+      * @Component
+      * @Configuration @Repository @Service @Controller @RestController
+    * @EnableAutoConfiguration
+      * spring.factories
+        * org.springframework.boot.autoconfigure.EnableAutoConfiguration
+        * @Configuration
+          * Auto Configuration 도 Configuration 이다.
+          * @Configuration : 스프링에서 빈을 등록하는 자바 설정파일
+          * 참고) 애노테이션 위치는 위아래 상관없다.
+        * @ConditionalOn~ : 조건에 따라 어떤 빈을 등록하기도 하고 안등록 하기도 하고
+          * @ConditionalOnMissingBean : 빈 등록 안되어있으면 해준다.
