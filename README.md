@@ -42,7 +42,7 @@
     * 빈은 사실 두 단계로 나눠서 읽힘
       * 1단계: @ComponentScan
       * 2단계: @EnableAutoConfiguration
-    * @ComponentScan : 하위 패키지까지 자바파일 읽어서 아래 애노테이션이 붙은것들을 자바 빈으로 등록해줌
+    * @ComponentScan : 디폴트 패키지 부터 하위 패키지까지 자바파일 읽어서 아래 애노테이션이 붙은것들을 자바 빈으로 등록해줌 (다른 패키지는 등록 X)
       * @Component
       * @Configuration @Repository @Service @Controller @RestController
     * @EnableAutoConfiguration
