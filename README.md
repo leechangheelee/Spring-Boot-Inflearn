@@ -48,6 +48,8 @@
     * @EnableAutoConfiguration
       * spring.factories
         * org.springframework.boot.autoconfigure.EnableAutoConfiguration
+          * 기본적으로 이 아래에 정의된 것들은 @Configuration 을 모두 달고 있다.
+          * 그 중 조건에 따라 빈에 등록이 될수도 있고 안될 수도 있다.
         * @Configuration
           * Auto Configuration 도 Configuration 이다.
           * @Configuration : 스프링에서 빈을 등록하는 자바 설정파일
