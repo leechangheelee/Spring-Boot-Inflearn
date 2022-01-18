@@ -55,4 +55,4 @@
           * @Configuration : 스프링에서 빈을 등록하는 자바 설정파일
           * 참고) 애노테이션 위치는 위아래 상관없다.
         * @ConditionalOn~ : 조건에 따라 아래에 기술된 자바를 빈으로 등록하기도 하고 안등록 하기도 하고
-          * @ConditionalOnMissingBean : 특정 빈 등록 안되어있으면 기술된 자바를 빈으로 등록 해준다.
+          * @ConditionalOnMissingBean : 특정 빈 등록 안되어있으면 아래에 기술된 자바를 빈으로 등록 해준다.
