@@ -108,11 +108,12 @@
            }
            ```
         3. src/main/resource/META-INF에 spring.factories 파일 만들기
+        4. spring.factories 안에 자동 설정 파일 추가
            ```
            org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
            me.changhee.HolomanConfiguration
            ```
-        4. mvn install
+        5. mvn install
            * 인텔리제이 > maven > Lifecycle > install 로 jar 생성
              * 이 프로젝트를 빌드해서 jar 파일 생성된걸 다른 maven 프로젝트에서도 갖다 쓸 수 있도록 로컬 maven 저장소에 설치함
              * 다른 프로젝트의 pom.xml 에서 의존성 설정하면 가져다 빈 등록해서 씀
