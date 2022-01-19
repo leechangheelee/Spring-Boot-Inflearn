@@ -56,3 +56,71 @@
           * 참고) 애노테이션 위치는 위아래 상관없다.
         * @ConditionalOn~ : 조건에 따라 아래에 기술된 자바를 빈으로 등록하기도 하고 안등록 하기도 하고
           * @ConditionalOnMissingBean : 특정 빈 등록 안되어있으면 아래에 기술된 자바를 빈으로 등록 해준다.
+  * 자동 설정 만들기
+    * Starter와 AutoConfigure
+      * xxx-Spring-Boot-Autoconfigure 모듈 : 자동 설정
+      * xxx-Spring-Boot-Starter 모듈 : 필요한 의존성 정의
+      * 그냥 하나로 만들고 싶을 때
+        * xxx-Spring-Boot-Starter
+          * 예) lee-spring-boot-starter
+      * 구현 방법
+        1. 의존성 추가
+           ```xml
+           <!-- pom.xml -->
+           <dependencies>
+               <dependency>
+                   <groupId>org.springframework.boot</groupId>
+                   <artifactId>spring-boot-autoconfigure</artifactId>
+               </dependency>
+               <dependency>
+                   <groupId>org.springframework.boot</groupId>
+                   <artifactId>spring-boot-autoconfigure-processor</artifactId>
+                   <optional>true</optional>
+               </dependency>
+           </dependencies>
+
+           <dependencyManagement>
+               <dependencies>
+                   <dependency>
+                       <groupId>org.springframework.boot</groupId>
+                       <artifactId>spring-boot-dependencies</artifactId>
+                       <version>2.0.3.RELEASE</version>
+                       <type>pom</type>
+                       <scope>import</scope>
+                   </dependency>
+               </dependencies>
+           </dependencyManagement>
+           ```
+        2. @Configuration 파일 작성
+           ```java
+           /* HollomanConfiguration.java */
+           @Configuration
+           public class HolomanConfiguration {
+
+               @Bean
+               public Holoman holoman() {
+                   Holoman holoman = new Holoman();
+                   holoman.setHowLong(5);
+                   holoman.setName("Changhee");
+                   return holoman;
+               }
+
+           }
+           ```
+        3. src/main/resource/META-INF에 spring.factories 파일 만들기
+           ```
+           org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+           me.changhee.HolomanConfiguration
+           ```
+        4. mvn install
+           * 인텔리제이 > maven > Lifecycle > install 로 jar 생성
+             * 이 프로젝트를 빌드해서 jar 파일 생성된걸 다른 maven 프로젝트에서도 갖다 쓸 수 있도록 로컬 maven 저장소에 설치함
+             * 다른 프로젝트의 pom.xml 에서 의존성 설정하면 가져다 빈 등록해서 씀
+               ```xml
+               <!-- 다른 프로젝트의 pom.xml -->
+               <dependency>
+                   <groupId>me.changhee</groupId>
+                   <artifactId>lee-spring-boot-starter</artifactId>
+                   <version>1.0-SNAPSHOT</version>
+               </dependency>
+               ```
