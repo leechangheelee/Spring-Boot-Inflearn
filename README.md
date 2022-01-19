@@ -124,3 +124,4 @@
                    <version>1.0-SNAPSHOT</version>
                </dependency>
                ```
+               * 다른 프로젝트에서 빈을 별도로 다시 정의하면 @ComponentScan 후 @EnableAutoConfiguration 통해서 빈 등록하면서 가져온걸로 덮어짐
