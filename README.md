@@ -147,3 +147,48 @@
             }
             ...
             ```
+      * 빈 재정의 수고 덜기
+        * 작업중인 PJT에 src/main/resource/application.properties 에 설정값 저장하여 활용
+          ```
+          holoman.name = changhee
+          holoman.how-long = 20
+          ```
+        * @ConfigurationProperties("holoman")
+          * 자동 설정용 프로젝트 (xxx-spring-boot-starter) 에서 properties 에 해당하는 부분 정의필요
+            ```java
+            /* lee-spring-boot-starter 의 HolomanProperties.java */
+            ...
+            @ConfigurationProperties("holoman")
+            public class HolomanProperties {
+
+                private String name;
+
+                private int howLong;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public int getHowLong() {
+                    return howLong;
+                }
+
+                public void setHowLong(int howLong) {
+                    this.howLong = howLong;
+                }
+            }
+            ...
+
+            ```
+          * 의존성 추가
+            ```xml
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <optional>true</optional>
+            </dependency>
+            ```
