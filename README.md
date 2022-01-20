@@ -126,3 +126,24 @@
                </dependency>
                ```
                * 다른 프로젝트에서 빈을 별도로 다시 정의하면 @ComponentScan 후 @EnableAutoConfiguration 통해서 빈 등록하면서 가져온걸로 덮어짐
+    * @ConfigurationProperties 사용
+      * 덮어쓰기 방지하기
+        * @ConditionalOnMissingBean
+          * 자동 설정용 프로젝트 (xxx-spring-boot-starter) 에서 bean 등록시 @ConditionalOnMissingBean 추가
+            ```java
+            /* lee-spring-boot-starter 프로젝트의 HolomanConfiguration.java */
+            ...
+            public class HolomanConfiguration {
+
+                @Bean
+                @ConditionalOnMissingBean // 아래 타입의 bean이 없을때만 등록해라. component sacn 후 autoconfigure 할 당시에 이미 존재하면 패스.
+                public Holoman holoman(HolomanProperties properties) {
+                    Holoman holoman = new Holoman();
+                    holoman.setHowLong(properties.getHowLong());
+                    holoman.setName(properties.getName());
+
+                    return holoman;
+                }
+            }
+            ...
+            ```
