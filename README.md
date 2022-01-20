@@ -192,3 +192,24 @@
                 <optional>true</optional>
             </dependency>
             ```
+        * @EnableConfigurationProperties(HolomanProperties) // properties 활용을 위해 추가
+          * 자동 설정용 프로젝트 (xxx-spring-boot-starter) 의 configuration 파일에서 @EnableConfigurationProperties 추가
+            ```java
+            /* lee-spring-boot-starter 의 HolomanConfiguration.java */
+            ...
+            @Configuration
+            @EnableConfigurationProperties(HolomanProperties.class)
+            public class HolomanConfiguration {
+
+                @Bean
+                @ConditionalOnMissingBean // 아래 타입의 bean이 없을때만 등록해라. component sacn 후 autoconfigure 할 당시에 이미 존재하면 패스.
+                public Holoman holoman(HolomanProperties properties) {
+                    Holoman holoman = new Holoman();
+                    holoman.setHowLong(properties.getHowLong());
+                    holoman.setName(properties.getName());
+
+                    return holoman;
+                }
+            }
+            ...
+            ```
