@@ -268,7 +268,7 @@
         * 랜덤 포트
           * `server.port=0`
         * `ApplicationListner<ServletWebServerInitializedEvent>`
-           * 런타임에서 사용중인 포트 확인
+           * 런타임 상에서 사용중인 포트 확인
             ```java
             /* PortListener.java */
             @Component
