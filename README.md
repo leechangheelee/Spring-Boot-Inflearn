@@ -257,3 +257,7 @@
               <artifactId>spring-boot-starter-undertow</artifactId>
            </dependency>
            ```
+      * 웹 서버 사용하지 않기
+        * 스프링 부트는 기본적으로 의존성에 웹 관련 기술이 있으면 웹 애플리케이션으로 만드는 시도를 한다.
+        * 하지만 application.properties 에 다음과 같이 설정하면 웹 애플리케이션으로 뜨지 않는다.
+          * `spring.main.web-application-type=none`
