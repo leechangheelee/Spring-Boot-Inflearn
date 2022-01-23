@@ -261,3 +261,23 @@
         * 스프링 부트는 기본적으로 의존성에 웹 관련 기술이 있으면 웹 애플리케이션으로 만드는 시도를 한다.
         * 하지만 `application.properties` 에 다음과 같이 설정하면 웹 애플리케이션으로 뜨지 않는다.
           * `spring.main.web-application-type=none`
+      * 포트
+        * `server.port`
+          * `application.properties` 에 사용할 포트 설정
+            * `server.port=7070`
+        * 랜덤 포트
+          * `server.port=0`
+        * `ApplicationListner<ServletWebServerInitializedEvent>`
+           * 런타임에서 사용중인 포트 확인
+            ```java
+            /* PortListener.java */
+            @Component
+            public class PortListener implements ApplicationListener<WebServerInitializedEvent> {
+                // 서블릿 웹 서버가 생성이 되면 실행
+                @Override
+                public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
+                    WebServerApplicationContext applicationContext = webServerInitializedEvent.getApplicationContext();
+                    System.out.println(applicationContext.getWebServer().getPort());
+                }
+            }
+            ```
