@@ -232,3 +232,27 @@
         * 서블릿 만들고 등록
       * 서블릿 만들고 서블릿 컨테이너에 등록하는 과정이 분리되어있는 이유
         * 서블릿은 변하지 않고, 사용할 서블릿 컨테이너들(Tomcat, Jetty 등) 이 바뀔 수 있기 때문
+  * 내장 웹 서버 응용
+    * 컨테이너와 서버 포트
+      * 참고) https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.webserver
+      * 다른 서블릿 컨테이너로 변경
+        1. 기본으로 가져오는 톰캣을 의존성에서 제거
+           ```xml
+           <dependency>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-web</artifactId>
+               <exclusions>
+                   <exclusion>
+                       <groupId>org.springframework.boot</groupId>
+                       <artifactId>spring-boot-starter-tomcat</artifactId>
+                   </exclusion>
+               </exclusions>
+           </dependency>
+           ```
+        2. 사용하고자 하는 서블릿을 의존성에 추가
+           ```xml
+           <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-undertow</artifactId>
+           </dependency>
+           ```
