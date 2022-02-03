@@ -7,3 +7,6 @@
 
 ## **스프링 부트 원리**
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_원리.md
+
+## **스프링 부트 활용**
+  * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용.md
