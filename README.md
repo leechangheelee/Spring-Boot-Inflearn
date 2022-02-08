@@ -10,3 +10,4 @@
 
 ## **스프링 부트 활용**
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용.md
+  * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_테스팅.md
