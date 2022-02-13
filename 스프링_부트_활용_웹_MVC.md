@@ -67,6 +67,30 @@
       `{"username":"changhee", "password":"123"}` ↔ USER 
       * @RequestBody
       * @ReponseBody
+      ```java
+      /* UserController.java */
+      ...
+      @RestController
+      public class UserController {
+
+          @GetMapping("/hello")
+          public String hello() {
+              // public @ResponseBody String hello() 와 동일. @RestController 에노테이션을 붙이면 @ResponseBody 생략해도 됨
+              // @RestController 이 아니라 @Controller 애노테이션을 붙이면 뷰 네임 리졸버를 사용해서 아래 이름 ("hello") 의 뷰를 찾으려고 시도하게 됨
+              // @RestController 붙이면 "hello" 가 메세지 컨버터를 타서 응답본문으로 내용이 들어가게 됨
+              return "hello";
+          }
+
+          @PostMapping("/users/create")
+          public User create(@RequestBody User user) {
+          // public @ResponseBody User create(@RequestBody User user) 와 동일
+          // @RestController 에노테이션을 붙이면 @ResponseBody 생략해도 됨
+              // Composition 타입 (클래스 안에 여러가지 프로퍼티를 가짐) 인 경우 기본적으로 JSON 메세지 컨버터가 사용됨
+              // 그냥 리턴타입이 String 이다 → String 메세지 컨버터가 사용됨. int 도 마찬가지.
+              return user;
+          }
+      }
+      ```
 ***
   * 스프링 웹 MVC - ViewResolver
 ***
