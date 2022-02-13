@@ -61,7 +61,7 @@
     * 스프링 MVC 재정의
       * @Configuration + @EnableWebMvc
 ***
-  * 스프링 웹 MVC - HttpMessageConverters
+  * 스프링 웹 MVC - HttpMessageConverters ← 스프링 프레임워크에서 제공하는 인터페이스. 스프링 MVC의 일부분. HttpMessageConverter 는 여러가지가 있고, 어떤 요청을 받았는지 / 어떤 응답을 보내야 하는지에 따라 사용하는 HttpMessageConverter 가 달라짐. (예. JSON 요청, JSON 본문 일 때 JSON 메세지 컨버터가 사용됨)
     * 참고) https://docs.spring.io/spring-framework/docs/5.0.7.RELEASE/spring-framework-reference/web.html#mvc-config-message-converters
     * HTTP 요청 본문을 객체로 변경하거나, 객체를 HTTP 응답 본문으로 변경할 때 사용.  
       `{"username":"changhee", "password":"123"}` ↔ USER 
