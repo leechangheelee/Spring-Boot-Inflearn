@@ -68,6 +68,44 @@
       * @RequestBody
       * @ReponseBody
       ```java
+      /* user/User.java */
+      ...
+      public class User {
+
+          private Long id;
+
+          private String username;
+
+          private String password;
+
+
+          // 자바 빈 규약에 따라서 getter, setter 를 사용해서 데이터 바인딩을 해준다
+          public Long getId() {
+              return id;
+          }
+
+          public void setId(Long id) {
+              this.id = id;
+          }
+
+          public String getUsername() {
+              return username;
+          }
+
+          public void setUsername(String username) {
+              this.username = username;
+          }
+
+          public String getPassword() {
+              return password;
+          }
+
+          public void setPassword(String password) {
+              this.password = password;
+          }
+      }
+      ```
+      ```java
       /* UserController.java */
       ...
       @RestController
@@ -88,6 +126,40 @@
               // Composition 타입 (클래스 안에 여러가지 프로퍼티를 가짐) 인 경우 기본적으로 JSON 메세지 컨버터가 사용됨
               // 그냥 리턴타입이 String 이다 → String 메세지 컨버터가 사용됨. int 도 마찬가지.
               return user;
+          }
+      }
+      ```
+      ```java
+      /* UserControllerTest.java */
+      ...
+      @RunWith(SpringRunner.class)
+      @WebMvcTest(UserController.class)
+      public class UserControllerTest {
+
+          @Autowired
+          MockMvc mockMvc;
+          // 이 객체는 @WebMvcTest 애노테이션을 사용하면 자동으로 빈으로 만들어주기 때문에 우리가 그냥 빈에 있는걸 바로 꺼내쓸 수 있음
+
+          @Test
+          public void hello() throws Exception {
+              mockMvc.perform(get("/hello"))
+                      .andExpect(status().isOk())
+                      .andExpect(content().string("hello"));
+          }
+
+          @Test
+          public void crateUser_JSON() throws Exception {
+              String userJSON = "{\"username\":\"changhee\", \"password\":\"123\"}";
+              mockMvc.perform(post("/users/create")
+                          .contentType(MediaType.APPLICATION_JSON_UTF8)
+                          .accept(MediaType.APPLICATION_JSON_UTF8) // 응답으로 어떤 데이터를 원하느냐
+                          .content(userJSON)) // 요청 본문
+                      .andExpect(status().isOk())
+                      .andExpect(jsonPath("$.username",
+                              is(equalTo("changhee"))))
+                      .andExpect(jsonPath("$.password",
+                              is(equalTo("123"))))
+                      .andDo(print());
           }
       }
       ```
