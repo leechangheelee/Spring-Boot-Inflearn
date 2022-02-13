@@ -62,8 +62,13 @@
       * @Configuration + @EnableWebMvc
 ***
   * 스프링 웹 MVC - HttpMessageConverters
+    * 참고) https://docs.spring.io/spring-framework/docs/5.0.7.RELEASE/spring-framework-reference/web.html#mvc-config-message-converters
+    * HTTP 요청 본문을 객체로 변경하거나, 객체를 HTTP 응답 본문으로 변경할 때 사용.  
+      `{"username":"changhee", "password":"123"}` ↔ USER 
+      * @RequestBody
+      * @ReponseBody
 ***
-  * 스프링 웹 MVC - ViewResolve
+  * 스프링 웹 MVC - ViewResolver
 ***
   * 스프링 웹 MVC - 정적 리소스 지원
 ***
