@@ -210,6 +210,45 @@
         * 요즘은 주로 JSON 을 사용하기 때문에 보통은 별도의 설정없이 사용
 ***
   * 스프링 웹 MVC - 정적 리소스 지원
+    * 정적 리소스 : 웹브라우저나 클라이언트에서 요청이 들어왔을 때 해당하는 리소스가 이미 만들어져 있고, 만들어져 있는 리소스를 그대로 보내주면 되는 경우
+    * 정적 리소스 맵핑 "/**" (URL 패턴이 루트부터 매핑)
+      * 기본 리소스 위치
+        * classpath:/static
+          * 예) "/hello.html" → (src/main/resource)/static/hello.html
+        * classpath:/public
+        * classpath:/resources
+        * classpath:/META-INF/resources
+        * spring.mvc.static-path-pattern: 맵핑 설정 변경 가능  
+          ```
+          #application.properties
+          spring.mvc.static-path-pattern=/static/**
+          # URL 패턴이 /static 부터 매핑
+          # http://localhost:8080/static/hello.html 로 접근해야 함
+          # 딱히 이렇게 쓰는 경우는 잘 없음
+          ```
+      * Last-Modified 헤더를 보고 304 응답을 보냄 (브라우저 개발자도구로 확인)
+        * If-Modified-Since 이후에 내용이 바뀌었으면 새로 달라 (200 응답)
+        * 그 이후 내용 변경없이 refresh 시 리소스를 새로 보내지는 않음. 응답이 빠름 (캐싱 동작. 304 응답)
+      * ResourceHttpRequestHandler가 처리함
+        * WebMvcConfigure의 addResourceHandlers로 커스터마이징 할 수 있음
+          ```java
+          /* config/WebConfig.java */
+          ...
+          @Configuration
+          public class WebConfig implements WebMvcConfigurer {
+
+              @Override
+              public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                  // resource handler 를 추가하는 것
+                  // 스프링 부트가 제공해주는 리소스 핸들러는 그대로 유지하면서
+                  // 개발자가 원하는 리소스 핸들러만 따로 추가할 수 있음
+                  registry.addResourceHandler("/m/**")
+                          .addResourceLocations("classpath:/m/") // 반드시 "/" 로 끝나야 함
+                          .setCachePeriod(20); // 초 단위. 캐시 컨트롤을 직접 해주어야 함
+              }
+          }
+          ```
+          * "m/hello.html" → (src/main/resource)/m/hello.html
 ***
   * 스프링 웹 MVC - 웹JAR
 ***
