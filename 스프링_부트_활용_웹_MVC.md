@@ -251,6 +251,52 @@
           * "/m/hello.html" → (src/main/resource)/m/hello.html
 ***
   * 스프링 웹 MVC - 웹JAR
+    * 웹JAR 맵핑 "/webjars/**"
+      * 웹JAR : 클라이언트에서 사용하는 자바스크립트 라이브러리들 (jQuery, Bootstrap, Vue.js, React.js, Angular 등등) 을 JAR 파일로 추가할 수 있음. JAR파일로 의존성 추가하고 템플릿을 사용해서 동적으로 콘텐츠를 생성할 때 또는 정적 리소스에서도 웹JAR에 있는 css나 JavaScript를 참조할 수 있음.
+      * 의존성 추가 관련, maven 중앙저장소에서도 검색가능
+        ```xml
+        <!-- pom.xml -->
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+        ```
+        ```html
+        <!-- static/hello.html -->
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Title</title>
+        </head>
+        <body>
+        Hello Static Resource HAHAHA LOL
+
+        <!--<script src="/webjars/jquery/3.3.1/dist/jquery.min.js"></script>-->
+        <!--버전을 빼려면 의존성에 webjars-locator-core 를 추가해야 함-->
+        <script src="/webjars/jquery/dist/jquery.min.js"></script>
+        <script>
+            $(function() {
+                alert("ready!");
+            });
+        </script>
+
+        </body>
+        </html>
+        ```
+      * 버전 생략하고 사용하려면
+        * webjars-locator-core 의존성 추가
+          ```xml
+          <!-- pom.xml -->
+          <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
+          <dependency>
+              <groupId>org.webjars</groupId>
+              <artifactId>webjars-locator-core</artifactId>
+              <version>0.35</version>
+          </dependency>
+          ```
 ***
   * 스프링 웹 MVC - index 페이지와 파비콘
 ***
