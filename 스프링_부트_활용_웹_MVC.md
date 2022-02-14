@@ -170,9 +170,41 @@
       * 뷰 리졸버중의 하나인데, 들어오는 요청의 accept 헤더에 따라 응답이 달라짐
       * accept header (테스트 코드의 .accept(MediaType.APPLICATION_XML) 부분) ← 브라우저 또는 클라이언트가 어떠한 타입의 본문을 응답을 원한다 라고 서버한테 알려주는 것
       * 참고) https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-multiple-representations
+      * 경우에 따라서는 accept header 를 제공하지 않는 요청도 있는데, 그럴때는 format 이라는 매개변수 사용.  
+        `/path?format=pdf`
     * 스프링 부트
       * 뷰 리졸버 설정 제공
       * HttpMessageConvertersAutoConfiguration
+        ```java
+        /* UserControllerTest.java */
+        ...
+        /* 요청을 JSON 으로 보내고 응답을 XML로 받는 테스트 */
+        @Test
+        public void crateUser_XML() throws Exception {
+            String userJSON = "{\"username\":\"changhee\", \"password\":\"123\"}";
+            mockMvc.perform(post("/users/create")
+                            .contentType(MediaType.APPLICATION_JSON_UTF8)
+                            .accept(MediaType.APPLICATION_XML) // 응답으로 어떤 데이터를 원하느냐
+                            .content(userJSON)) // 요청 본문
+                    .andExpect(status().isOk())
+                    .andExpect(xpath("/User/username")
+                            .string("changhee"))
+                    .andExpect(xpath("/User/password")
+                            .string("123"))
+                    .andDo(print());
+        }
+        ...
+        ```  
+        `HttpMediaTypeNotAcceptableException` 발생 : 미디어 타입을 처리할 http message converter 가 없는 경우.  
+        HttpMessageConvertersAutoConfiguration → JacksonHttpMessageConvertersConfiguration 확인.
+        @ConditionalOnClass({XmlMapper.class}) 조건에 따라 MappingJackson2XmlHttpMessageConverterConfiguration 컨버터가 로드가 안됨.
+        ```xml
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.9.6</version>
+        </dependency>
+        ```
 ***
   * 스프링 웹 MVC - 정적 리소스 지원
 ***
