@@ -166,6 +166,13 @@
       ```
 ***
   * 스프링 웹 MVC - ViewResolver
+    * ContentNegotiatingViewResolver
+      * 뷰 리졸버중의 하나인데, 들어오는 요청의 accept 헤더에 따라 응답이 달라짐
+      * accept header (테스트 코드의 .accept(MediaType.APPLICATION_XML) 부분) ← 브라우저 또는 클라이언트가 어떠한 타입의 본문을 응답을 원한다 라고 서버한테 알려주는 것
+      * 참고) https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-multiple-representations
+    * 스프링 부트
+      * 뷰 리졸버 설정 제공
+      * HttpMessageConvertersAutoConfiguration
 ***
   * 스프링 웹 MVC - 정적 리소스 지원
 ***
