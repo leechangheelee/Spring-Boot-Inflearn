@@ -248,7 +248,7 @@
               }
           }
           ```
-          * "m/hello.html" → (src/main/resource)/m/hello.html
+          * "/m/hello.html" → (src/main/resource)/m/hello.html
 ***
   * 스프링 웹 MVC - 웹JAR
 ***
