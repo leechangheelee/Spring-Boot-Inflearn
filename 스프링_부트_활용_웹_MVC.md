@@ -197,14 +197,17 @@
         ```  
         `HttpMediaTypeNotAcceptableException` 발생 : 미디어 타입을 처리할 http message converter 가 없는 경우.  
         HttpMessageConvertersAutoConfiguration → JacksonHttpMessageConvertersConfiguration 확인.
-        @ConditionalOnClass({XmlMapper.class}) 조건에 따라 MappingJackson2XmlHttpMessageConverterConfiguration 컨버터가 로드가 안됨.
+        @ConditionalOnClass({XmlMapper.class}) 조건 (클래스패스에 XmlMapper.class 가 있을때만 등록이 되도록 설정) 에 따라 MappingJackson2XmlHttpMessageConverterConfiguration 컨버터가 등록이 안됨.  
+        아래와 같이 의존성을 추가하여 클래스패스에 xml 매퍼 등록.
         ```xml
+        <!-- pom.xml -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>2.9.6</version>
         </dependency>
         ```
+        * 요즘은 주로 JSON 을 사용하기 때문에 보통은 별도의 설정없이 사용
 ***
   * 스프링 웹 MVC - 정적 리소스 지원
 ***
