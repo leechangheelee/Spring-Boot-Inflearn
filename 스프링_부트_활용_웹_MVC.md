@@ -392,6 +392,44 @@
       ```
 ***
   * 스프링 웹 MVC - HtmlUnit
+    * HTML 템플릿 뷰 테스트를 보다 전문적으로 하자
+      * https://htmlunit.sourceforge.io/
+      * https://htmlunit.sourceforge.io/gettingStarted.html
+      * 의존성 추가
+        ```xml
+        <!-- pom.xml -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit-driver</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        ```
+      * @Autowire WebClient
+        ```java
+        /* SampleControllerTest.java */
+        ...
+        @RunWith(SpringRunner.class)
+        @WebMvcTest(SampleController.class)
+        public class SampleControllerTest {
+
+            @Autowired
+            WebClient webClient;
+
+            @Test
+            public void hello() throws Exception {
+                HtmlPage page = webClient.getPage("/hello");
+                HtmlHeading1 h1 = page.getFirstByXPath("//h1");
+                assertThat(h1.getTextContent()).isEqualToIgnoringCase("changhee");
+            }
+
+        }
+        ```
+        * MockMvc 도 같이 사용가능
 ***
   * 스프링 웹 MVC - ExceptionHandler
 ***
