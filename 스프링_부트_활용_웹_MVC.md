@@ -523,6 +523,76 @@
       * https://joomn11.tistory.com/26
       * https://spring.io/guides/gs/rest-hateoas/
       * https://docs.spring.io/spring-hateoas/docs/current/reference/html/#reference
+      ```java
+      /* hello.java */
+      ...
+      public class Hello {
+
+          private String prefix;
+
+          private String name;
+
+          public String getPrefix() {
+              return prefix;
+          }
+
+          public void setPrefix(String prefix) {
+              this.prefix = prefix;
+          }
+
+          public String getName() {
+              return name;
+          }
+
+          public void setName(String name) {
+              this.name = name;
+          }
+
+          @Override
+          public String toString() {
+              return prefix + " " + name;
+          }
+      }
+      ```
+      ```java
+      /* SampleController.java */
+      ...
+      @RestController
+      public class SampleController {
+
+          @GetMapping("/hello")
+          public Resource<Hello> hello() {
+              Hello hello = new Hello();
+              hello.setPrefix("Hey,");
+              hello.setName("Changhee");
+
+              // 링크 정보를 추가하는 다양한 방법 중 하나
+              Resource<Hello> helloResource = new Resource<>(hello); // hateoas의 리소스 = 우리가 제공할 리소스 + 링크정보
+              helloResource.add(linkTo(methodOn(SampleController.class).hello()).withSelfRel());
+
+              return helloResource;
+          }
+      }
+      ```
+      ```java
+      /* SampleControllerTest.java */
+      ...
+      @RunWith(SpringRunner.class)
+      @WebMvcTest(SampleController.class)
+      public class SampleControllerTest {
+
+          @Autowired
+          MockMvc mockMvc;
+
+          @Test
+          public void hello() throws Exception {
+              mockMvc.perform(get("/hello"))
+                      .andDo(print()) // 테스트 실패했을 때 출력이 먼저되면 좋으니까 위에서 실행
+                      .andExpect(status().isOk())
+                      .andExpect(jsonPath("$._links.self").exists()); // self 라는 링크정보가 있는지 확인
+          }
+      }
+      ```
     * ObjectMapper 제공 (@Autowired 로 ObjectMapper 주입받아 사용 가능)
       * ↑ 여러가지 이유로 많이 사용하게 됨. 우리가 제공하는 리소스를 JSON 으로 변환할 때 사용하는 인터페이스. 잭슨 이라는 라이브러리에서 제공해 주는 클래스이고 의존성에 spring-boot-starter-web 만 있어도 빈으로 등록해줌
       * spring.jackson.*  
