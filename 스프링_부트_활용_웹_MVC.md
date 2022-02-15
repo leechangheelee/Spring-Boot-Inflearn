@@ -433,6 +433,68 @@
         * MockMvc 도 같이 사용가능
 ***
   * 스프링 웹 MVC - ExceptionHandler
+    * 스프링 애노테이션 기반 MVC 예외처리 방법
+      * @ControllerAdvice ← 여러 컨트롤러에서 발생하는 예외를 한곳에서 처리 가능
+      * @ExceptionHandler
+        ```java
+        /* SampleException.java */
+        ...
+        public class SampleException extends RuntimeException {
+
+        }
+        ```
+        ```java
+        /* AppError.java */
+        ...
+        public class AppError {
+
+            private String message;
+
+            private String reason;
+
+            public String getMessage() {
+                return message;
+            }
+
+            public void setMessage(String message) {
+                this.message = message;
+            }
+
+            public String getReason() {
+                return reason;
+            }
+
+            public void setReason(String reason) {
+                this.reason = reason;
+            }
+        }
+        ```
+        ```java
+        /* SampleController.java */
+        ...
+        @Controller
+        public class SampleController {
+
+            @GetMapping("/hello")
+            public String hello() {
+                throw new SampleException();
+            }
+
+            @ExceptionHandler(SampleException.class)
+            // 이 SampleContoller 안에서 발생하는 SampleException 이라는 예외가 발생하면 이 핸들러를 사용하겠다.
+            public @ResponseBody AppError sampleError(SampleException e) { // @ResponseBody 사용해서 JSON 으로 리턴
+                AppError appError = new AppError(); // 이 앱에 특화되어있는, 에러에 대한 정보를 담고 있는 커스텀한 클래스 (필수는 아님)
+                appError.setMessage("error.app.key"); // 보통은 받아온 e 활용해서 처리하면 됨
+                appError.setReason("IDK IDK IDK");
+                return appError;
+            }
+        }
+        ```
+    * 스프링 부트가 제공하는 기본 예외 처리기
+      * BasicErrorController
+        * HTML과 JSON 응답 지원
+      * 커스터마이징 방법
+        * ErrorController 구현
 ***
   * 스프링 웹 MVC - Spring HATEOAS
 ***
