@@ -310,6 +310,86 @@
         * https://stackoverflow.com/questions/2208933/how-do-i-force-a-favicon-refresh
 ***
   * 스프링 웹 MVC - Thymeleaf
+    * 스프링 부트가 자동 설정을 지원하는 템플릿 엔진
+      * FreeMarker
+      * Groovy
+      * __Thymeleaf__
+      * Mustache
+    * JSP를 권장하지 않는 이유
+      * JAR 패키징 할 때는 동작하지 않고, WAR 패키징 해야 함
+      * Undertow는 JSP를 지원하지 않음
+      * https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.embedded-container.jsp-limitations
+    * Thymeleaf 사용하기
+      * https://www.thymeleaf.org/
+      * https://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
+      * 의존성 추가 : spring-boot-starter-thymeleaf
+        ```xml
+        <!-- pom.xml -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        ```
+      * 템플릿 파일 위치 : /src/main/resources/__templates__/
+      * 예제 : https://github.com/thymeleaf/thymeleafexamples-stsm/blob/3.0-master/src/main/webapp/WEB-INF/templates/seedstartermng.html
+      ```html
+      <!-- templates/hello.html -->
+      <!DOCTYPE html>
+      <html lang="en" xmlns:th="http://www.thymeleaf.org">
+      <head>
+          <meta charset="UTF-8">
+          <title>Title</title>
+      </head>
+      <body>
+      <!--기본적으로 name 값이 전달이 안되면 Name 이 출력됨-->
+      <h1 th:text="${name}">Name</h1>
+      </body>
+      </html>
+      ```
+      ```java
+      /* SampleController.java */
+      ...
+      @Controller
+      public class SampleController {
+
+          @GetMapping("/hello")
+          public String hello(Model model) { // 여기서는 리턴하는 String 이 뷰 이름이 되는 것. @RestController 사용때가 응답본문으로 들어가는 것.
+              // 뷰에다가 전달해야 하는 데이터들은 model 이라는 곳에 담을 수 있음. MAP 이라고 생각하면 됨
+              model.addAttribute("name", "changhee");
+              return "hello";
+          }
+
+      }
+      ```
+      ```java
+      /* SampleControllerTest.java */
+      ...
+      @RunWith(SpringRunner.class)
+      @WebMvcTest(SampleController.class)
+      public class SampleControllerTest {
+
+          @Autowired
+          MockMvc mockMvc;
+
+          @Test
+          public void hello() throws Exception {
+              // 요청 "/hello"
+              // 응답
+              // - 모델 name : changhee
+              // - 뷰 이름 : hello
+
+              mockMvc.perform(get("/hello"))
+                      .andExpect(status().isOk())
+                      .andExpect(view().name("hello"))
+                      .andExpect(model().attribute("name", is("changhee")))
+                      .andExpect(content().string(containsString("changhee")))
+                      .andDo(print());
+              // 응답본문에서 뷰 렌더링 결과(html) 확인이 가능한 것은 Thymeleaf 를 쓰니까 가능한 것. (서블릿 엔진 개입없이 뷰 결과 확인가능)
+              // Thymeleaf 는 독자적으로 최종적인 뷰를 완성함
+          }
+
+      }
+      ```
 ***
   * 스프링 웹 MVC - HtmlUnit
 ***
