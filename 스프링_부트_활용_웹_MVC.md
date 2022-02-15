@@ -391,11 +391,12 @@
       }
       ```
 ***
-  * 스프링 웹 MVC - HtmlUnit
+  * 스프링 웹 MVC - HtmlUnit ← html을 단위테스트 하기 위한 툴
     * HTML 템플릿 뷰 테스트를 보다 전문적으로 하자
       * https://htmlunit.sourceforge.io/
       * https://htmlunit.sourceforge.io/gettingStarted.html
       * 의존성 추가
+        * test scope → 테스트할 때에만 사용됨
         ```xml
         <!-- pom.xml -->
         <dependency>
