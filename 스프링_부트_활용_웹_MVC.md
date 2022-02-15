@@ -493,8 +493,16 @@
     * 스프링 부트가 제공하는 기본 예외 처리기
       * BasicErrorController
         * HTML과 JSON 응답 지원
+        * 커스텀한 에러 처리가 없으면 맨 마지막에 BasicErrorController 가 처리
       * 커스터마이징 방법
         * ErrorController 구현
+    * 커스텀 에러 페이지
+      * 상태 코드 값에 따라 에러 페이지 보여주기
+      * src/main/resources/static|templates/error/
+      * html 파일 명이 상태값과 동일해야 함
+        * 404.html ← 404 에러 발생시
+        * 5xx.html ← 500번대 에러 발생시
+      * ErrorViewResolver 구현 ← 좀 더 동적으로 에러페이지 처리가능
 ***
   * 스프링 웹 MVC - Spring HATEOAS
 ***
