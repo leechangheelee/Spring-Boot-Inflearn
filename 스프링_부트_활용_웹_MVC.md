@@ -384,7 +384,7 @@
                       .andExpect(model().attribute("name", is("changhee")))
                       .andExpect(content().string(containsString("changhee")))
                       .andDo(print());
-              // 응답본문에서 뷰 렌더링 결과(html) 확인이 가능한 것은 Thymeleaf 를 쓰니까 가능한 것. (서블릿 엔진 개입없이 뷰 결과 확인가능)
+              // 응답본문에서 뷰 렌더링 결과(html) 확인이 가능한 것은 Thymeleaf 를 쓰니까 가능한 것. (JSP와 달리 서블릿 엔진 개입없이 뷰 결과 확인가능)
               // Thymeleaf 는 독자적으로 최종적인 뷰를 완성함
           }
 
