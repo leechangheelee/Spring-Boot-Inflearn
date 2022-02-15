@@ -523,9 +523,10 @@
       * https://joomn11.tistory.com/26
       * https://spring.io/guides/gs/rest-hateoas/
       * https://docs.spring.io/spring-hateoas/docs/current/reference/html/#reference
-    * ObjectMapper 제공
+    * ObjectMapper 제공 (@Autowired 로 ObjectMapper 주입받아 사용 가능)
       * ↑ 여러가지 이유로 많이 사용하게 됨. 우리가 제공하는 리소스를 JSON 으로 변환할 때 사용하는 인터페이스. 잭슨 이라는 라이브러리에서 제공해 주는 클래스이고 의존성에 spring-boot-starter-web 만 있어도 빈으로 등록해줌
-      * spring.jackson.*
+      * spring.jackson.*  
+        application.properties 에서 ObjectMapper를 커스터마이징 해서 사용가능
       * Jackson2ObjectMapperBuilder
     * LinkDiscovers 제공
       * 클라이언트 쪽에서 링크 정보를 Rel 이름으로 찾을 때 사용할 수 있는 XPath 확장 클래스
