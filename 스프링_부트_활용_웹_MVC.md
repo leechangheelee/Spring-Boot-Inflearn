@@ -505,5 +505,21 @@
       * ErrorViewResolver 구현 ← 좀 더 동적으로 에러페이지 처리가능
 ***
   * 스프링 웹 MVC - Spring HATEOAS
+    * Hypermedia As The Engine Of Application State
+      * 서버 : 현재 리소스와 연관된 링크 정보를 클라이언트에게 제공한다.
+      * 클라이언트 : 연관된 링크 정보를 바탕으로 리소스에 접근한다.
+      * 연관된 링크 정보
+        * Relation
+        * Hypertext Reference)
+      * spring-boot-starter-hateoas 의존성 추가
+        ```xml
+        <!-- pom.xml -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        ```
+      * https://spring.io/guides/gs/rest-hateoas/
+      * https://docs.spring.io/spring-hateoas/docs/current/reference/html/#reference
 ***
   * 스프링 웹 MVC - CORS
