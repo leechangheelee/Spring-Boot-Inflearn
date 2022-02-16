@@ -610,3 +610,88 @@
           * URI 스키마 (http, https)
           * hostname (whiteship.me, localhost)
           * 포트 (8080, 18080)
+    * 스프링 MVC @CrossOrigin
+      * https://docs.spring.io/spring-framework/docs/5.0.7.RELEASE/spring-framework-reference/web.html#mvc-cors
+      * @Controller나 @RequestMapping에 추가하거나
+      * WebMvcConfigurer 사용해서 글로벌 설정
+      ```java
+      /*
+      SERVER
+      SpringcorsserverApplication.java
+      */
+      ...
+      @SpringBootApplication
+      @RestController
+      public class SpringcorsserverApplication {
+
+          //@CrossOrigin(origins = "http://localhost:18080")
+          @GetMapping("/hello")
+          public String hello() {
+              return "hello";
+          }
+
+          public static void main(String[] args) {
+              SpringApplication app = new SpringApplication(SpringcorsserverApplication.class);
+              app.run(args);
+          }
+      }
+      ```
+      ```java
+      /*
+      SERVER
+      WebConfig.java
+      */
+      ...
+      @Configuration
+      public class WebConfig implements WebMvcConfigurer { // 스프링 MVC 기능 확장
+          @Override
+          public void addCorsMappings(CorsRegistry registry) {
+              registry.addMapping("/**") // ← 요청 오는 모든 경로. "/hello" ← /hello로 오는 요청
+                      .allowedOrigins("http://localhost:18080"); // ← 여기에 공개하겠다
+          }
+      }
+      ```
+      ```
+      #CLIENT
+      #application.properties
+      server.port=18080
+      ```
+      ```xml
+      <!--
+      CLIENT
+      pom.xml
+      -->
+      <dependency>
+          <groupId>org.webjars.bower</groupId>
+          <artifactId>jquery</artifactId>
+          <version>3.3.1</version>
+      </dependency>
+      ```
+      ```html
+      <!--
+      CLIENT
+      index.html
+      -->
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <title>Title</title>
+      </head>
+      <body>
+      <h1>CORS Client</h1>
+      <script src="/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+      <script>
+          $(function() {
+              $.ajax("http://localhost:8080/hello")
+                  .done(function(msg) {
+                      alert(msg);
+                  })
+                  .fail(function() {
+                      alert("fail");
+                  });
+          })
+      </script>
+      </body>
+      </html>
+      ```
