@@ -602,3 +602,10 @@
       * 클라이언트 쪽에서 링크 정보를 Rel 이름으로 찾을 때 사용할 수 있는 XPath 확장 클래스
 ***
   * 스프링 웹 MVC - CORS
+    * SOP과 CORS
+      * Single-Origin Policy ← 같은 Origin 에만 요청을 보낼 수 있다
+      * Cross-Origin Resource Sharing ← SOP를 우회하기 위한 표준 기술. 서로 다른 Origin 끼리 리소스를 share 할 수 있는 방법을 제공하는 표준
+      * Origin?
+        * URI 스키마 (http, https)
+        * hostname (whiteship.me, localhost)
+        * 포트 (8080, 18080)
