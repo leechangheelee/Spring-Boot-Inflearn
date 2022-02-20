@@ -12,3 +12,4 @@
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용.md
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_테스팅.md
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_웹_MVC.md
+  * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_스프링_데이터.md
