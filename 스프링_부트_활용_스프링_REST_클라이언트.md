@@ -132,6 +132,32 @@
         * 로컬 커스터마이징
         * 글로벌 커스터마이징
           * RestTemplateCustomizer
+            ```java
+            /* SpringbootrestApplication.java */
+            ...
+            @SpringBootApplication
+            public class SpringbootrestApplication {
+
+                public static void main(String[] args) {
+                    SpringApplication app = new SpringApplication(SpringbootrestApplication.class);
+                    app.run(args);
+                }
+            ...
+                @Bean
+                public RestTemplateCustomizer restTemplateCustomizer() {
+                    return restTemplate -> {
+                        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory()); // Apache Http Client 를 사용하게 됨
+                    };
+                }
+            }
+            ```
+            ```xml
+            <!-- pom.xml -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+            </dependency>
+            ```
           * 빈 재정의
     * WebClient
       * 기본으로 Reactor Netty의 HTTP 클라이언트 사용
