@@ -14,3 +14,4 @@
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_웹_MVC.md
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_스프링_데이터.md
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_스프링_시큐리티.md
+  * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_활용_스프링_REST_클라이언트.md
