@@ -126,4 +126,61 @@
     ```
 ***
   * 스프링 REST 클라이언트 - 커스터마이징
-    * 참고
+    * RestTemplate
+      * 기본으로 java.net.HttpURLConnection 사용
+      * 커스터마이징
+        * 로컬 커스터마이징
+        * 글로벌 커스터마이징
+          * RestTemplateCustomizer
+          * 빈 재정의
+    * WebClient
+      * 기본으로 Reactor Netty의 HTTP 클라이언트 사용
+      * 커스터마이징
+        * 로컬 커스터마이징
+          ```java
+          /* RestRunner.java */
+          ...
+          @Component
+          public class RestRunner implements ApplicationRunner {
+
+          @Autowired
+          WebClient.Builder builder;
+
+          @Override
+          public void run(ApplicationArguments args) throws Exception {
+              WebClient webClient = builder
+                      // .build() 호출 전 다양한 커스터마이징이 가능
+                      .baseUrl("http://localhost:8080")
+                      .build();
+
+              StopWatch stopWatch = new StopWatch();
+              stopWatch.start();
+
+              Mono<String> helloMono = webClient.get().uri("/hello") // 위에서 baseUrl 세팅을 해 줬기 때문에 "/hello" 라고만 호출해도 됨
+                      .retrieve()
+                      .bodyToMono(String.class);
+          ...
+          ```
+        * 글로벌 커스터마이징
+          * WebClientCustomizer
+            ```java
+            /* SpringbootrestApplication.java */
+            ...
+            @SpringBootApplication
+            public class SpringbootrestApplication {
+
+                public static void main(String[] args) {
+                    SpringApplication app = new SpringApplication(SpringbootrestApplication.class);
+                    app.run(args);
+                }
+
+                @Bean
+                public WebClientCustomizer webClientCustomizer() {
+                    // 모든 빌더는 아래와 같이 baseUrl이 세팅된 상태로 다른 빈들에게 주입이 됨
+                    return webClientBuilder -> webClientBuilder.baseUrl("http://localhost:8080");
+                }
+
+                // WebClient Builder 자체를 재정의 할 수도 있음 (customizer 말고)
+            ...
+            ```
+          * 빈 재정의
