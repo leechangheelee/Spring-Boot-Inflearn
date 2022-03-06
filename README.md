@@ -18,3 +18,4 @@
   * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/그밖에_다양한_기술_연동.md
 
 ## **스프링 부트 운영**
+  * https://github.com/leechangheelee/Spring-Boot-Inflearn/blob/main/스프링_부트_운영_스프링_부트_Actuator.md
