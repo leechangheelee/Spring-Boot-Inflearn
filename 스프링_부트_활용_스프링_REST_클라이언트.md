@@ -205,6 +205,18 @@
                     // 모든 빌더는 아래와 같이 baseUrl이 세팅된 상태로 다른 빈들에게 주입이 됨
                     return webClientBuilder -> webClientBuilder.baseUrl("http://localhost:8080");
                 }
+                
+                /*
+                위 코드와 동일
+                @Bean
+                public WebClientCustomizer webClientCustomizer() {
+                    return new WebClientCustomizer() {
+                        @Override
+                        public void customize(WebClient.Builder webClientBuilder) {
+                            webClientBuilder.baseUrl("http://localhost:8080");
+                        }
+                    };
+                }*/
 
                 // WebClient Builder 자체를 재정의 할 수도 있음 (customizer 말고)
             ...
