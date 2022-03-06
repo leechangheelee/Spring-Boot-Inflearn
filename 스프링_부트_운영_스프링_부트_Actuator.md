@@ -21,7 +21,18 @@
         * `management.endpoint.info.enabled=true`
 ***
   * 스프링 부트 Actuator - JMX와 HTTP
-    * 참고
+    * JConsole 사용하기
+      * https://docs.oracle.com/javase/tutorial/jmx/mbeans/
+      * https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html
+    * VisualVM 사용하기
+      * https://visualvm.github.io/download.html
+    * HTTP 사용하기
+      * /actuator
+        * http://localhost:8080/actuator
+      * health와 info를 제외한 대부분의 Endpoint가 기본적으로 __비공개__ 상태
+      * 공개 옵션 조정 ← application.properties 에서
+        * management.endpoints.web.exposure.include=*
+        * management.endpoints.web.exposure.exclude=env,beans
 ***
   * 스프링 부트 Actuator - 스프링 부트 어드민
     * 참고
