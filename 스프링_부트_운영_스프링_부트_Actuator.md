@@ -34,5 +34,31 @@
         * management.endpoints.web.exposure.include=*
         * management.endpoints.web.exposure.exclude=env,beans
 ***
-  * 스프링 부트 Actuator - 스프링 부트 어드민
-    * 참고
+  * 스프링 부트 Actuator - Spring-Boot-Admin
+    * https://github.com/codecentric/spring-boot-admin
+    * 스프링 부트 Actuator UI 제공
+      * 어드민 서버 설정
+        * 의존성 추가
+          ```xml
+          <!-- pom.xml -->
+          <dependency>
+              <groupId>de.codecentric</groupId>
+              <artifactId>spring-boot-admin-starter-server</artifactId>
+              <version>2.0.1</version>
+          </dependency>
+          ```
+        * @EnableAdminServer
+          ```java
+          /* DemospringmonitorApplication.java */
+          ...
+          @SpringBootApplication
+          @EnableAdminServer
+          public class DemospringmonitorApplication {
+
+              public static void main(String[] args) {
+                  SpringApplication app = new SpringApplication(DemospringmonitorApplication.class);
+                  app.run(args);
+              }
+          }
+          ```
+      * 클라이언트 설정
