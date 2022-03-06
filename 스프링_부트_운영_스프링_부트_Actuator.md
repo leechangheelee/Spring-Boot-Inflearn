@@ -37,7 +37,8 @@
   * 스프링 부트 Actuator - Spring-Boot-Admin
     * https://github.com/codecentric/spring-boot-admin
     * 스프링 부트 Actuator UI 제공
-      * 어드민 서버 설정
+      * 민감 정보들이 많기 때문에 실제 사용시에는 스프링 시큐리티 적용 필요
+      * 어드민 서버 설정 (Admin UI 프로젝트)
         * 의존성 추가
           ```xml
           <!-- pom.xml -->
@@ -61,4 +62,21 @@
               }
           }
           ```
-      * 클라이언트 설정
+      * 클라이언트 설정 (대상 프로젝트)
+        * 의존성 추가
+          ```xml
+          <!-- pom.xml -->
+          <dependency>
+              <groupId>de.codecentric</groupId>
+              <artifactId>spring-boot-admin-starter-client</artifactId>
+              <version>2.0.1</version>
+          </dependency>
+          ```
+        * properties 설정
+          ```
+          #application.properties
+          server.port=18080
+
+          spring.boot.admin.client.url=http://localhost:8080
+          management.endpoints.web.exposure.include=*
+          ```
